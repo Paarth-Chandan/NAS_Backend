@@ -3,6 +3,7 @@ package org.workspace.nas_backend.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import org.workspace.nas_backend.model.User;
 import org.workspace.nas_backend.repository.UserRepository;
@@ -14,6 +15,9 @@ public class UserController {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     @PostMapping("/users")
     public ResponseEntity<String> addUser(@RequestBody User newUser) {
         // Check if username already exists
@@ -21,17 +25,21 @@ public class UserController {
             return new ResponseEntity<>("Username already exists!", HttpStatus.CONFLICT);
         }
 
+        // Encrypt the password
+        newUser.setPassword(passwordEncoder.encode(newUser.getPassword()));
+
         // Save the new user to the database
         userRepository.save(newUser);
         return new ResponseEntity<>("User created successfully!", HttpStatus.CREATED);
     }
 
     @PostMapping("/login")
-    public boolean login(@RequestBody User loginRequest) {
+    public ResponseEntity<String> login(@RequestBody User loginRequest) {
         User user = userRepository.findByUsername(loginRequest.getUsername());
-        if (user != null && user.getPassword().equals(loginRequest.getPassword())) {
-            return true;
+        if (user != null && passwordEncoder.matches(loginRequest.getPassword(), user.getPassword())) {
+            return ResponseEntity.ok("Login successful");
         }
-        return false;
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid credentials");
     }
+
 }
