@@ -24,7 +24,9 @@ public class UserController {
         if (userRepository.findByUsername(newUser.getUsername()) != null) {
             return new ResponseEntity<>("Username already exists!", HttpStatus.CONFLICT);
         }
-
+        if (userRepository.findByEmail(newUser.getEmail()) != null) {
+            return new ResponseEntity<>("Email already exists!", HttpStatus.CONFLICT);
+        }
         // Encrypt the password
         newUser.setPassword(passwordEncoder.encode(newUser.getPassword()));
 

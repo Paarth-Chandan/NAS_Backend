@@ -8,5 +8,7 @@ CREATE TABLE USERS (
     password VARCHAR(255) NOT NULL
 );
 
+DROP TABLE IF EXISTS ARTICLE;
+
 -- Select statements to view the data
 SELECT * FROM USERS;
