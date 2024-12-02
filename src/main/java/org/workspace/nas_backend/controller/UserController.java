@@ -36,11 +36,17 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody User loginRequest) {
+    public ResponseEntity<?> login(@RequestBody User loginRequest) {
+        // Find the user by username
         User user = userRepository.findByUsername(loginRequest.getUsername());
+
         if (user != null && passwordEncoder.matches(loginRequest.getPassword(), user.getPassword())) {
-            return ResponseEntity.ok("Login successful");
+            // Create a DTO with only the required fields
+            org.workspace.nas_backend.dto.UserResponse userResponse = new org.workspace.nas_backend.dto.UserResponse(user.getUsername(), user.getEmail());
+            return ResponseEntity.ok(userResponse);
         }
+
+        // Return unauthorized status for invalid credentials
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid credentials");
     }
 
