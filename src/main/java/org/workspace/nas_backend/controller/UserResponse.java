@@ -1,4 +1,5 @@
-package org.workspace.nas_backend.dto;
+//package org.workspace.nas_backend.dto;
+package org.workspace.nas_backend.controller;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
