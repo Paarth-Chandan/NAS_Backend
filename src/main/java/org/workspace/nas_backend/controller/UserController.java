@@ -44,4 +44,17 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid credentials");
     }
 
+    @DeleteMapping("/users/{username}")
+    public ResponseEntity<String> deleteUser(@PathVariable String username) {
+        // Find the user by username
+        User user = userRepository.findByUsername(username);
+
+        if (user == null) {
+            return new ResponseEntity<>("User not found", HttpStatus.NOT_FOUND);
+        }
+
+        // Delete the user
+        userRepository.delete(user);
+        return new ResponseEntity<>("User deleted successfully", HttpStatus.OK);
+    }
 }
