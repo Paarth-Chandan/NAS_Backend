@@ -42,7 +42,7 @@ public class UserController {
 
         if (user != null && passwordEncoder.matches(loginRequest.getPassword(), user.getPassword())) {
             // Create a DTO with only the required fields
-            org.workspace.nas_backend.dto.UserResponse userResponse = new org.workspace.nas_backend.dto.UserResponse(user.getUsername(), user.getEmail());
+            UserResponse userResponse = new UserResponse(user.getUsername(), user.getEmail());
             return ResponseEntity.ok(userResponse);
         }
 
