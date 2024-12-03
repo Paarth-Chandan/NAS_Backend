@@ -12,7 +12,7 @@ import java.util.Map;
 @Service
 public class MLService {
 
-    private static final String ML_MODEL_URL = "https://8521-34-80-208-72.ngrok-free.app/generate";
+    private static final String ML_MODEL_URL = "https://1860-34-80-208-72.ngrok-free.app/generate";
 
     @Autowired
     private ResponseRepository responseRepository;
