@@ -9,16 +9,29 @@ import org.springframework.web.bind.annotation.RestController;
 import org.workspace.nas_backend.model.Response;
 import org.workspace.nas_backend.service.ResponseService;
 
+import java.util.Map;
+
 @RestController
 @RequestMapping("/api/responses")
 public class ResponseController {
 
-    @Autowired
-    private ResponseService responseService;
+    private final ResponseService service;
 
-    @PostMapping("/save")
-    public ResponseEntity<Response> saveResponse(@RequestBody Response response) {
-        Response savedResponse = responseService.saveResponse(response);
-        return ResponseEntity.ok(savedResponse);
+    public ResponseController(ResponseService service) {
+        this.service = service;
+    }
+
+    @PostMapping
+    public ResponseEntity<?> processResponse(@RequestBody ResponseDTO dto) {
+        // Save and split the response
+        Response savedResponse = service.saveAndSplitResponse(dto.getUserInput(), dto.getResponse());
+
+        // Create a response object to send back the questions
+        return ResponseEntity.ok(Map.of(
+                "question1", savedResponse.getQuestion1(),
+                "question2", savedResponse.getQuestion2(),
+                "question3", savedResponse.getQuestion3(),
+                "question4", savedResponse.getQuestion4()
+        ));
     }
 }

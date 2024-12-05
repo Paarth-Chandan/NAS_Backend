@@ -19,6 +19,15 @@ public class Response {
     @Column(name = "user_input", nullable = false)
     private String userInput;
 
-    @Column(name = "response")
-    private String response;
+    @Column(name = "question1")
+    private String question1;
+
+    @Column(name = "question2")
+    private String question2;
+
+    @Column(name = "question3")
+    private String question3;
+
+    @Column(name = "question4")
+    private String question4;
 }
