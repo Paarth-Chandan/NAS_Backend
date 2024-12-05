@@ -10,15 +10,15 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class MLResponseEntity {
+public class Response {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id; // Use Integer instead of int for compatibility
+    private Long id;
 
-    @Column(nullable = false)
+    @Column(name = "user_input", nullable = false)
     private String userInput;
 
-    @Column(nullable = false, columnDefinition = "TEXT")
-    private String modelResponse;
+    @Column(name = "response")
+    private String response;
 }

@@ -9,7 +9,18 @@ CREATE TABLE USERS (
     password VARCHAR(255) NOT NULL
 );
 
+DROP TABLE IF EXISTS responses;
+CREATE TABLE responses (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    user_input TEXT NOT NULL,
+    question1 TEXT,
+    question2 TEXT,
+    question3 TEXT,
+    question4 TEXT
+);
+
 DROP TABLE IF EXISTS ARTICLE;
 
 -- Select statements to view the data
 SELECT * FROM USERS;
+SELECT * FROM responses;
