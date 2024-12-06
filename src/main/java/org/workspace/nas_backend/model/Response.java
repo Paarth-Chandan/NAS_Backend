@@ -30,4 +30,12 @@ public class Response {
 
     @Column(name = "question4")
     private String question4;
+
+    // Ensure null values are replaced with empty strings
+    public void replaceNullWithEmpty() {
+        this.question1 = this.question1 == null ? "" : this.question1;
+        this.question2 = this.question2 == null ? "" : this.question2;
+        this.question3 = this.question3 == null ? "" : this.question3;
+        this.question4 = this.question4 == null ? "" : this.question4;
+    }
 }

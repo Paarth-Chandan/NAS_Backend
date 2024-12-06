@@ -26,6 +26,9 @@ public class ResponseController {
         // Save and split the response
         Response savedResponse = service.saveAndSplitResponse(dto.getUserInput(), dto.getResponse());
 
+        // Replace nulls with empty strings before sending the response
+        savedResponse.replaceNullWithEmpty();
+
         // Create a response object to send back the questions
         return ResponseEntity.ok(Map.of(
                 "question1", savedResponse.getQuestion1(),
