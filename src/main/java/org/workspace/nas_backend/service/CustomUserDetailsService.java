@@ -1,4 +1,4 @@
-package org.workspace.nas_backend;
+package org.workspace.nas_backend.service;
 
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
